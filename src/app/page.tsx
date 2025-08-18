@@ -13,8 +13,13 @@ export default function Home() {
   };
   return (
     <>
-      <div>Home</div>
-      <button className="bg-amber-400 px-3 py-2 rounded-2xl cursor-pointer" onClick={handleLogout}>Logout</button>
+      <div className="pt-28 px-5 ">
+        <h1 className="text-4xl font-semibold mb-4">Welcome to QuizForge</h1>
+        <p>Create, share and take quizzes</p>
+        <button className="py-2 px-5 mt-6 bg-indigo-600 rounded-lg text-center text-white cursor-pointer">Create Quiz</button>
+
+
+      </div>
     </>
   );
 }
