@@ -8,6 +8,8 @@ import { useRouter } from 'next/navigation';
 import React from 'react';
 import { useState, useEffect } from "react";
 import { toast } from 'sonner';
+import Input from '../components/Input';
+import PasswordInput from '../components/PasswordInput';
 
 
 export default function Login() {
@@ -73,36 +75,10 @@ export default function Login() {
                     </div>
 
                     <div className="space-y-6">
-                        <div className="relative">
-                            <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                            <input
-                                type="email"
-                                name="email"
-                                placeholder="Email address"
-                                value={formData.email}
-                                onChange={handleInputChange}
-                                className="w-full pl-10 pr-4 text-black placeholder:text-gray-300 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
-                            />
-                        </div>
 
-                        <div className="relative">
-                            <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                            <input
-                                type={showPassword ? "text" : "password"}
-                                name="password"
-                                placeholder="Password"
-                                value={formData.password}
-                                onChange={handleInputChange}
-                                className="w-full pl-10 pr-12 text-black placeholder:text-gray-300 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
-                            />
-                            <button
-                                type="button"
-                                onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
-                            >
-                                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                            </button>
-                        </div>
+                        <Input name='email' placeholder='Email address' value={formData.email} onChange={handleInputChange} icon={<Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />} />
+
+                        <PasswordInput type='password' name='password' placeholder='Password' value={formData.password} onChange={handleInputChange} showPassword={showPassword} setShowPassword={setShowPassword} icon={<Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />} />
 
                         <div className="flex items-center justify-between">
                             <div className="flex items-center">
@@ -125,7 +101,8 @@ export default function Login() {
 
                         <button
                             onClick={handleSubmit}
-                            className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 px-4 rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transform transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer"
+                            disabled={loading}
+                            className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 px-4 rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transform transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             Sign In
                         </button>

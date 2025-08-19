@@ -4,6 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "@/images/logo.png";
 import { useState } from "react";
+import { logout } from "@/lib/api/auth";
+import { toast } from "sonner";
 
 export default function Sidebar() {
     const pathname = usePathname();
@@ -13,6 +15,13 @@ export default function Sidebar() {
         return null;
     }
 
+    const handleLogout = async () => {
+        const response = await logout();
+
+        toast.success("Logout Successful")
+        window.location.href = '/login';
+    };
+
     const links = [
         {
             href: "/",
@@ -21,9 +30,9 @@ export default function Sidebar() {
             icon: <svg viewBox="-0.32 -0.32 16.64 16.64" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#0000000" strokeWidth="1.152"><path fillRule="evenodd" clipRule="evenodd" d="M7 1H1V7H7V1ZM7 9H1V15H7V9ZM9 1H15V7H9V1ZM15 9H9V15H15V9Z" fill="#ffffff"></path></svg>
         },
         {
-            href: "/profile",
+            href: "/create",
             label: "Create Quiz",
-            active: pathname === "/profile",
+            active: pathname === "/create",
             icon: <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><path d="M15 12L12 12M12 12L9 12M12 12L12 9M12 12L12 15" stroke="#ffffff" strokeWidth="1.56" strokeLinecap="round"></path><path d="M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7" stroke="#ffffff" strokeWidth="1.56" strokeLinecap="round"></path></svg>
         },
         {
@@ -101,9 +110,7 @@ export default function Sidebar() {
                 <div className="absolute bottom-4 left-0 w-full px-4">
                     <button
                         className="flex items-center w-full p-2 rounded-lg cursor-pointer transition-colors duration-700"
-                        onClick={() => {
-                            window.location.href = "/login";
-                        }}
+                        onClick={handleLogout}
                     >
                         <div className="w-6 mr-3">
                             <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" xmlns="http://www.w3.org/2000/svg">

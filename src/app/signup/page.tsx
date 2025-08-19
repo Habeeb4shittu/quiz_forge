@@ -7,6 +7,8 @@ import { signup } from '@/lib/api/auth';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { ApiResponse } from '@/lib/types';
+import Input from '../components/Input';
+import PasswordInput from '../components/PasswordInput';
 
 
 export default function Signup() {
@@ -79,91 +81,17 @@ export default function Signup() {
 
                     <div className="space-y-6">
                         <div className="grid grid-cols-2 gap-4">
-                            <div className="relative">
-                                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                                <input
-                                    type="text"
-                                    name="firstname"
-                                    placeholder="First Name"
-                                    value={formData.firstname}
-                                    onChange={handleInputChange}
-                                    className="w-full pl-10 pr-4 text-black placeholder:text-gray-300 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
-                                />
-                            </div>
-                            <div className="relative">
-                                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                                <input
-                                    type="text"
-                                    name="lastname"
-                                    placeholder="Last Name"
-                                    value={formData.lastname}
-                                    onChange={handleInputChange}
-                                    className="w-full pl-10 pr-4 text-black placeholder:text-gray-300 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
-                                />
-                            </div>
+                            <Input type='text' name='firstname' placeholder='First Name' value={formData.firstname} onChange={handleInputChange} icon={<User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />} />
+                            <Input type='text' name='lastname' placeholder='Last Name' value={formData.lastname} onChange={handleInputChange} icon={<User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />} />
                         </div>
 
-                        <div className="relative">
-                            <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                            <input
-                                type="text"
-                                name="username"
-                                placeholder="Username"
-                                value={formData.username}
-                                onChange={handleInputChange}
-                                className="w-full pl-10 pr-4 text-black placeholder:text-gray-300 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
-                            />
-                        </div>
+                        <Input type='text' name='username' placeholder='Username' value={formData.username} onChange={handleInputChange} icon={<User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />} />
 
-                        <div className="relative">
-                            <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                            <input
-                                type="email"
-                                name="email"
-                                placeholder="Email address"
-                                value={formData.email}
-                                onChange={handleInputChange}
-                                className="w-full pl-10 pr-4 text-black placeholder:text-gray-300 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
-                            />
-                        </div>
+                        <Input type='email' name='email' placeholder='Email address' value={formData.email} onChange={handleInputChange} icon={<Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />} />
 
-                        <div className="relative">
-                            <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                            <input
-                                type={showPassword ? "text" : "password"}
-                                name="password"
-                                placeholder="Password"
-                                value={formData.password}
-                                onChange={handleInputChange}
-                                className="w-full pl-10 pr-12 text-black placeholder:text-gray-300 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white "
-                            />
-                            <button
-                                type="button"
-                                onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
-                            >
-                                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                            </button>
-                        </div>
+                        <PasswordInput name='password' placeholder='Password' value={formData.password} onChange={handleInputChange} showPassword={showPassword} setShowPassword={setShowPassword} icon={<Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />} />
 
-                        <div className="relative">
-                            <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                            <input
-                                type={showConfirmPassword ? "text" : "password"}
-                                name="confirmPassword"
-                                placeholder="Confirm Password"
-                                value={formData.confirmPassword}
-                                onChange={handleInputChange}
-                                className="w-full pl-10 pr-12 text-black placeholder:text-gray-300 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
-                            />
-                            <button
-                                type="button"
-                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
-                            >
-                                {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                            </button>
-                        </div>
+                        <PasswordInput name='confirmPassword' placeholder='Confirm Password' value={formData.confirmPassword} onChange={handleInputChange} showPassword={showConfirmPassword} setShowPassword={setShowConfirmPassword} icon={<Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />} />
 
                         <div className="flex items-center">
                             <input
