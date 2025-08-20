@@ -1,4 +1,5 @@
 import axios from "axios";
+import { QuizUser } from "../types";
 
 export const signup = async (data: {
   firstname: string;
@@ -15,6 +16,11 @@ export const signup = async (data: {
 
 export const login = async (data: { email: string; password: string }) => {
   const res = await axios.post("/api/auth/login", data);
+  if (res) {
+    // Store user data in localStorage or sessionStorage
+    const user = await axios.get<{ user: QuizUser }>("/api/auth/me");
+    localStorage.setItem("user", JSON.stringify(user.data.user));
+  }
   return res.data;
 };
 

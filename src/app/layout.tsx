@@ -14,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="antialiased min-h-screen ">
+      <body className="antialiased overflow-hidden text-gray-900">
         <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>

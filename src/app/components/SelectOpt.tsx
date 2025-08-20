@@ -23,7 +23,7 @@ export function SelectOpt({
 }) {
     return (
         <Select value={selected ?? ""} onValueChange={setSelected}>
-            <SelectTrigger className="w-full cursor-pointer py-6">
+            <SelectTrigger className="w-full cursor-pointer py-6 text-md">
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>
             <SelectContent>

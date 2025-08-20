@@ -3,6 +3,9 @@
 import { usePathname } from "next/navigation";
 import Sidebar from "./components/Sidebar";
 import { Toaster } from "sonner";
+import PeakGreeting from "./components/Greeting";
+import { useEffect, useState } from "react";
+import { QuizUser } from "@/lib/types";
 
 export default function LayoutWrapper({
     children,
@@ -10,21 +13,39 @@ export default function LayoutWrapper({
     children: React.ReactNode;
 }) {
     const pathname = usePathname();
+    const [user, setUser] = useState<QuizUser>({
+        _id: "",
+        firstname: "",
+        lastname: "",
+        username: "",
+        email: ""
+    });
+
+    useEffect(() => {
+        const savedUser = localStorage.getItem("user");
+        if (savedUser) {
+            setUser(JSON.parse(savedUser));
+        }
+    }, []);
+
     const isAuthPage = pathname === "/login" || pathname === "/signup";
 
     return (
-        <div
-            className={
-                isAuthPage
+        <main
+            className={`
+                ${isAuthPage
                     ? "flex items-center justify-center min-h-screen"
-                    : "grid md:grid-cols-[1fr_3fr] min-h-screen"
+                    : "grid md:grid-cols-[1fr_4fr] min-h-screen"} overflow-hidden`
             }
         >
             {!isAuthPage && <Sidebar />}
-            <main className="w-full">
+            <section className={`w-full max-h-screen overflow-y-auto ${isAuthPage ? "" : "px-0 sm:px-4 md:px-8 lg:px-12"}`}>
+                {!isAuthPage && (
+                    <PeakGreeting username={user.username} />
+                )}
                 {children}
                 <Toaster richColors position="top-right" />
-            </main>
-        </div>
+            </section>
+        </main>
     );
 }

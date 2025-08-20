@@ -3,3 +3,11 @@ export type ApiResponse = {
   status: string;
   userId?: string;
 };
+
+export interface QuizUser {
+    _id: string;
+    firstname: string;
+    lastname: string;
+    username: string;
+    email: string;
+}

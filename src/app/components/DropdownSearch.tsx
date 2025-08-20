@@ -37,11 +37,11 @@ export function SearchableDropdown({ options, selected, setSelected }: { options
                     variant="outline"
                     role="combobox"
                     aria-expanded={open}
-                    className="w-full justify-between"
+                    className="w-full justify-between text-md"
                 >
                     {selected
-                        ? options?.find((option) => option.value === selected)?.label
-                        : "Select option..."}
+                        ? <span className="text-black">{options?.find((option) => option.value === selected)?.label}</span>
+                        : <span className="text-gray-400">Select option...</span>}
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
             </PopoverTrigger>
