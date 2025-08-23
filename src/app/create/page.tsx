@@ -46,6 +46,7 @@ export default function CreatePage() {
 
 
     const handleCreateQuiz = async (e: React.FormEvent) => {
+        setLoading(true);
         e.preventDefault();
 
         const quizData = {
@@ -65,9 +66,11 @@ export default function CreatePage() {
 
         if (response.status === "success") {
             toast.success("Quiz created successfully!");
+            setLoading(false);
             // maybe navigate to quiz page or show success toast
         } else {
             toast.error(response.message || "Failed to create quiz.");
+            setLoading(false);
             // show error toast
         }
     };
@@ -111,7 +114,7 @@ export default function CreatePage() {
                     }} />
                     <label htmlFor="privacySwitch">Private Quiz</label>
                 </div>
-                <button type="submit" className="py-2 px-5 bg-indigo-600 rounded-lg cursor-pointer text-white">Create Quiz</button>
+                <button type="submit" className="py-2 px-5 bg-indigo-600 rounded-lg cursor-pointer text-white disabled:cursor-not-allowed disabled:opacity-35" disabled={loading}>{loading ? "Please wait..." : "Create Quiz"}</button>
             </form>
             <p className="mt-4 text-sm text-gray-500">Once created, you can add questions and options to your quiz.</p>
         </div>
