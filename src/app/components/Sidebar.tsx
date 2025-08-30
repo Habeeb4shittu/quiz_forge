@@ -16,8 +16,7 @@ export default function Sidebar() {
     }
 
     const handleLogout = async () => {
-        const response = await logout();
-
+        await logout();
         toast.success("Logout Successful")
         window.location.href = '/login';
     };

@@ -2,7 +2,7 @@
 
 import { login } from '@/lib/api/auth';
 import { ApiResponse } from '@/lib/types';
-import { Mail, Lock, Eye, EyeOff, Github } from 'lucide-react';
+import { Mail, Lock, Github } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react';
@@ -45,6 +45,7 @@ export default function Login() {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleSubmit = async (e: any) => {
+        setLoading(true);
         e.preventDefault();
         const loginUser = await login(formData) as ApiResponse;
 
@@ -102,9 +103,9 @@ export default function Login() {
                         <button
                             onClick={handleSubmit}
                             disabled={loading}
-                            className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 px-4 rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transform transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 px-4 rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transform transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer disabled:opacity-20 disabled:cursor-not-allowed"
                         >
-                            Sign In
+                            {loading ? "Signing In" : "Sign In"}
                         </button>
 
                         <div className="relative">

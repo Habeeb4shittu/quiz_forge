@@ -19,8 +19,8 @@ export interface Quiz {
   description: string;
   category_id: string;
   difficulty: "easy" | "medium" | "hard";
-  time_limit: string;
-  number_of_questions: string;
+  time_limit: number;
+  number_of_questions: number;
   tags: string[];
   icon: string;
   private: boolean;

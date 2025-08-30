@@ -23,3 +23,13 @@ export const fetchAllMyQuizzes = async () => {
     throw new Error("Failed to fetch quizzes");
   }
 };
+
+export const fetchQuiz = async (id: string | undefined) => {
+  try {
+    const response = await axios.get(`/api/quiz/get-quiz/${id}`);
+    return response.data;
+  } catch (err) {
+    console.error("Error Fetching quiz:", err);
+    throw new Error("Failed to fetch quiz");
+  }
+};
