@@ -3,13 +3,11 @@ import Quiz from "@/models/Quiz";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 
-export async function GET(
-  request: Request,
-  { params }: { params: { userId: string } }
-): Promise<NextResponse> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function GET(request: Request, context: any) {
   try {
     await dbConnect();
-    const { userId } = params;
+    const { userId } = context.params; // Access params directly
 
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       return NextResponse.json(
