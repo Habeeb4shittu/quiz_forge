@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 
 // Minimal types
 interface RouteParams {
-  params: { id: string };
+  params: { userId: string };
 }
 
 export async function GET(
