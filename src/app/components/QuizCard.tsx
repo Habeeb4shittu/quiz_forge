@@ -1,7 +1,7 @@
 import { Quiz } from "@/lib/types";
 import * as Icons from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { BookOpen, Clock, Hash, Lock, Star, Trash } from "lucide-react";
+import { BookOpen, Clock, Hash, Lock, Star, Trash, PlusCircle } from "lucide-react";
 import Link from "next/link";
 
 interface QuizCardProps {
@@ -15,7 +15,7 @@ function getIcon(name: string): LucideIcon {
 }
 
 export default function QuizCard({ quiz, onDelete }: QuizCardProps) {
-    const Icon = getIcon(quiz?.icon)
+    const Icon = getIcon(quiz?.icon);
     return (
         <div
             id={quiz._id}
@@ -76,6 +76,16 @@ export default function QuizCard({ quiz, onDelete }: QuizCardProps) {
                     </span>
                 </Link>
 
+                <Link
+                    href={`/my-quizzes/questions/add/${quiz._id}`}
+                    className="flex items-center justify-center gap-2 group text-gray-600 hover:text-white transition-colors duration-200"
+                >
+                    <PlusCircle className="w-4 h-4" />
+                    <span className="max-w-0 opacity-0 text-sm overflow-hidden transition-all duration-200 group-hover:max-w-[120px] group-hover:opacity-100">
+                        Questions
+                    </span>
+                </Link>
+
                 <button
                     onClick={() => onDelete(quiz._id)}
                     className="flex items-center justify-center gap-2 group cursor-pointer text-gray-600 hover:text-red-600 transition-colors duration-200"
@@ -86,7 +96,6 @@ export default function QuizCard({ quiz, onDelete }: QuizCardProps) {
                     </span>
                 </button>
             </div>
-
         </div>
     );
 }

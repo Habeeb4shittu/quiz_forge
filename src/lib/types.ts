@@ -25,3 +25,10 @@ export interface Quiz {
   icon: string;
   private: boolean;
 }
+
+export interface Question {
+  text: string;
+  choices: string[];
+  correctAnswerIndex: number;
+  explanation?: string;
+}

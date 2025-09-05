@@ -3,21 +3,47 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "@/images/logo.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { logout } from "@/lib/api/auth";
 import { toast } from "sonner";
+import {
+    LayoutDashboard,
+    Plus,
+    Search,
+    FileText,
+    Settings,
+    LogOut,
+    Menu,
+    X,
+    Sparkles
+} from "lucide-react";
+import { QuizUser } from "@/lib/types";
 
 export default function Sidebar() {
     const pathname = usePathname();
     const [open, setOpen] = useState(false);
 
+    const [user, setUser] = useState<QuizUser>({
+        _id: "",
+        firstname: "",
+        lastname: "",
+        username: "",
+        email: ""
+    });
+
+    useEffect(() => {
+        const savedUser = localStorage.getItem("user");
+        if (savedUser) {
+            setUser(JSON.parse(savedUser));
+        }
+    }, []);
+
     if (pathname === "/login" || pathname === "/signup") {
         return null;
     }
-
     const handleLogout = async () => {
         await logout();
-        toast.success("Logout Successful")
+        toast.success("Logout Successful");
         window.location.href = '/login';
     };
 
@@ -26,107 +52,143 @@ export default function Sidebar() {
             href: "/",
             label: "Dashboard",
             active: pathname === "/",
-            icon: <svg viewBox="-0.32 -0.32 16.64 16.64" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#0000000" strokeWidth="1.152"><path fillRule="evenodd" clipRule="evenodd" d="M7 1H1V7H7V1ZM7 9H1V15H7V9ZM9 1H15V7H9V1ZM15 9H9V15H15V9Z" fill="#ffffff"></path></svg>
+            icon: <LayoutDashboard className="w-5 h-5" />
         },
         {
             href: "/create",
             label: "Create Quiz",
             active: pathname === "/create",
-            icon: <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><path d="M15 12L12 12M12 12L9 12M12 12L12 9M12 12L12 15" stroke="#ffffff" strokeWidth="1.56" strokeLinecap="round"></path><path d="M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7" stroke="#ffffff" strokeWidth="1.56" strokeLinecap="round"></path></svg>
+            icon: <Plus className="w-5 h-5" />
         },
         {
             href: "/about",
             label: "Browse Quizzes",
             active: pathname === "/about",
-            icon: <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 6C13.7614 6 16 8.23858 16 11M16.6588 16.6549L21 21M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path></svg>
+            icon: <Search className="w-5 h-5" />
         },
         {
             href: "/my-quizzes",
             label: "My Quizzes",
-            active: pathname === "/contact",
-            icon: <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.93 6.76001L18.56 20.29C18.32 21.3 17.42 22 16.38 22H3.24001C1.73001 22 0.650023 20.5199 1.10002 19.0699L5.31001 5.55005C5.60001 4.61005 6.47003 3.95996 7.45003 3.95996H19.75C20.7 3.95996 21.49 4.53997 21.82 5.33997C22.01 5.76997 22.05 6.26001 21.93 6.76001Z" stroke="#ffffff" strokeWidth="1.584" strokeMiterlimit="10"></path><path d="M16 22H20.78C22.07 22 23.08 20.91 22.99 19.62L22 6" stroke="#ffffff" strokeWidth="1.584" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M9.67999 6.38L10.72 2.06006" stroke="#ffffff" strokeWidth="1.584" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M16.38 6.39001L17.32 2.05005" stroke="#ffffff" strokeWidth="1.584" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M7.70001 12H15.7" stroke="#ffffff" strokeWidth="1.584" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M6.70001 16H14.7" stroke="#ffffff" strokeWidth="1.584" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg>
+            active: pathname === "/my-quizzes",
+            icon: <FileText className="w-5 h-5" />
         },
         {
             href: "/settings",
             label: "Settings",
             active: pathname === "/settings",
-            icon: <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clipRule="evenodd" d="M16.5 7.063C16.5 10.258 14.57 13 12 13c-2.572 0-4.5-2.742-4.5-5.938C7.5 3.868 9.16 2 12 2s4.5 1.867 4.5 5.063zM4.102 20.142C4.487 20.6 6.145 22 12 22c5.855 0 7.512-1.4 7.898-1.857a.416.416 0 0 0 .09-.317C19.9 18.944 19.106 15 12 15s-7.9 3.944-7.989 4.826a.416.416 0 0 0 .091.317z" fill="#ffffff"></path></svg>
+            icon: <Settings className="w-5 h-5" />
         },
     ];
 
     return (
         <>
-            {/* Mobile Hamburger */}
+            {/* Mobile Menu Button */}
             <button
-                className="fixed bottom-4 right-4 z-40 cursor-pointer md:hidden bg-indigo-900 p-2 rounded-full"
+                className="fixed top-4 left-4 z-50 md:hidden bg-slate-900 hover:bg-slate-800 p-3 rounded-2xl shadow-xl backdrop-blur-md transition-all duration-300 hover:scale-105"
                 onClick={() => setOpen(!open)}
-                aria-label="Open sidebar"
+                aria-label="Toggle sidebar"
             >
-                <svg width="28" height="28" fill="none" stroke="#fff" viewBox="0 0 24 24">
-                    <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
+                <Menu className="w-6 h-6 text-white" />
             </button>
 
             {/* Sidebar */}
             <aside
-                className={`fixed top-0 left-0 h-full bg-gradient-to-tl from-indigo-900 via-purple-900 to-pink-900 text-white p-4 z-50 transition-transform duration-300
-                    ${open ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 md:static md:block`}
-                style={{ maxWidth: "100vw" }}
+                className={`fixed top-0 left-0 h-full bg-white/95 backdrop-blur-xl border-r border-slate-200/60 shadow-2xl z-50 transition-all duration-500 ease-out
+                    ${open ? "translate-x-0" : "-translate-x-full"} 
+                    md:translate-x-0 md:static md:block w-72`}
             >
-                {/* Close button for mobile */}
-                <div className="flex md:hidden justify-end mb-0.5">
+                {/* Header */}
+                <div className="relative">
+                    {/* Close button for mobile */}
                     <button
-                        className="text-white p-1 cursor-pointer rounded-full hover:bg-red-700 transition-colors duration-300"
+                        className="absolute top-4 right-4 md:hidden p-2 text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-xl transition-all duration-300"
                         onClick={() => setOpen(false)}
                         aria-label="Close sidebar"
                     >
-                        <svg width="24" height="24" fill="none" stroke="#fff" viewBox="0 0 24 24">
-                            <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
+                        <X className="w-5 h-5" />
                     </button>
+
+                    {/* Logo and Brand */}
+                    <div className="p-6 border-b border-slate-200/60">
+                        <div className="flex items-center space-x-3">
+                            <div className="relative">
+                                <div className="w-12 h-12 bg-violet-500 rounded-2xl flex items-center justify-center shadow-lg">
+                                    <Sparkles className="w-6 h-6 text-white" />
+                                </div>
+                                <div className="absolute -top-1 -right-1 w-4 h-4 bg-emerald-400 rounded-full border-2 border-white"></div>
+                            </div>
+                            <div>
+                                <h1 className="text-xl font-bold text-slate-900">QuizForge</h1>
+                                <p className="text-sm text-slate-500">Create & Learn</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div className="flex items-center justify-center mb-10">
-                    <Image src={Logo} alt="Logo" width={60} className="rounded-full" />
-                    <h1 className="text-2xl font-bold ml-2 font-mono text-[#0b1121]">QuizForge</h1>
-                </div>
-                <ul className="space-y-2">
-                    {links.map((link) => (
-                        <li key={link.href}>
+
+                {/* Navigation */}
+                <nav className="p-6 overflow-y-auto">
+                    <div className="space-y-2">
+                        {links.map((link, index) => (
                             <Link
+                                key={link.href}
                                 href={link.href}
-                                className={`flex items-center p-2 rounded-lg transition-colors duration-700 ${link.active
-                                    ? "bg-gradient-to-r from-indigo-800 via-purple-800 "
-                                    : "hover:bg-indigo-500"
+                                className={`group flex items-center px-4 py-3 rounded-2xl font-medium transition-all duration-300 ${link.active
+                                    ? "bg-violet-500 text-white shadow-lg shadow-violet-200 transform scale-105"
+                                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-100 hover:transform hover:translate-x-1"
                                     }`}
                                 onClick={() => setOpen(false)}
+                                style={{
+                                    animationDelay: `${index * 50}ms`
+                                }}
                             >
-                                <div className="w-6 mr-3">{link.icon}</div>
-                                <span className="font-medium text-md">{link.label}</span>
+                                <div className={`mr-3 transition-all duration-300 ${link.active
+                                    ? "text-white"
+                                    : "text-slate-500 group-hover:text-violet-500 group-hover:scale-110"
+                                    }`}>
+                                    {link.icon}
+                                </div>
+                                <span className="text-sm font-semibold">{link.label}</span>
+                                {link.active && (
+                                    <div className="ml-auto">
+                                        <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                                    </div>
+                                )}
                             </Link>
-                        </li>
-                    ))}
-                </ul>
-                <div className="absolute bottom-4 left-0 w-full px-4">
+                        ))}
+                    </div>
+                </nav>
+
+                {/* Footer */}
+                <div className="absolute bottom-0 left-0 w-full p-6 border-t border-slate-200/60 bg-white/80 backdrop-blur-md">
                     <button
-                        className="flex items-center w-full p-2 rounded-lg cursor-pointer transition-colors duration-700"
+                        className="group flex items-center w-full px-4 py-3 rounded-2xl font-medium text-slate-600 hover:text-red-600 hover:bg-red-50 transition-all duration-300 hover:transform hover:translate-x-1 cursor-pointer"
                         onClick={handleLogout}
                     >
-                        <div className="w-6 mr-3">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M16 17L21 12L16 7" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M21 12H9" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M12 19C7.58172 19 4 15.4183 4 11C4 6.58172 7.58172 3 12 3" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
+                        <div className="mr-3 text-slate-500 group-hover:text-red-500 group-hover:scale-110 transition-all duration-300">
+                            <LogOut className="w-5 h-5" />
                         </div>
-                        <span className="font-medium text-md">Logout</span>
+                        <span className="text-sm font-semibold">Logout</span>
                     </button>
+
+                    {/* User Profile Preview */}
+                    <div className="mt-4 p-3 bg-slate-50 rounded-xl border border-slate-200/60">
+                        <div className="flex items-center space-x-3">
+                            <div className="w-8 h-8 bg-violet-500 rounded-full flex items-center justify-center">
+                                <span className="text-xs font-bold text-white">{user?.firstname[0] || "U"}</span>
+                            </div>
+                            <div className="flex-1 min-w-0">
+                                <p className="text-sm font-semibold text-slate-900 truncate">{(user?.firstname + " " + user?.lastname) || "Name"}</p>
+                                <p className="text-xs text-slate-500 truncate">{user?.email || "user@example.com"}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </aside>
 
-            {/* Overlay for mobile */}
+            {/* Mobile Overlay */}
             {open && (
                 <div
-                    className="fixed inset-0 bg-[#00000034] z-30 md:hidden"
+                    className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-40 md:hidden transition-all duration-300"
                     onClick={() => setOpen(false)}
                 />
             )}
