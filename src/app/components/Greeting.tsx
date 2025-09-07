@@ -1,6 +1,8 @@
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const PeakGreeting = ({ username }: { username?: string }) => {
+    const pathname = usePathname();
     const [timeGreeting, setTimeGreeting] = useState("");
 
     useEffect(() => {
@@ -10,6 +12,8 @@ const PeakGreeting = ({ username }: { username?: string }) => {
         else if (hour < 21) setTimeGreeting("Good Evening");
         else setTimeGreeting("Good Night");
     }, []);
+
+    if (pathname.includes("questions/add")) return null;
 
     return (
         <h2 className="pt-12 pl-5 text-2xl md:text-4xl mb-6 font-extrabold">

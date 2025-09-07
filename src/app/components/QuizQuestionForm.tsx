@@ -45,8 +45,7 @@ export const QuestionInput: React.FC<QuestionInputProps> = ({ index, question, o
         question.choices.forEach(choice => {
             if (choice.trim()) completed++;
         });
-        if (question.explanation?.trim()) completed++;
-        return Math.round((completed / 6) * 100);
+        return Math.round((completed / 5) * 100);
     };
 
     return (

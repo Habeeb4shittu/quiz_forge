@@ -40,7 +40,7 @@ export default function LayoutWrapper({
         >
             {!isAuthPage && <Sidebar />}
             <section className={`w-full max-h-screen overflow-y-auto ${isAuthPage ? "" : "px-0 sm:px-4 md:px-8 lg:px-12"}`}>
-                {!isAuthPage || !pathname.includes("questions/add") && (
+                {!isAuthPage && (
                     <PeakGreeting username={user.username} />
                 )}
                 {children}

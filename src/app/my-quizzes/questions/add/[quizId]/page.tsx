@@ -120,8 +120,7 @@ const QuestionForm: React.FC = () => {
             q.choices.forEach(choice => {
                 if (choice.trim()) completed++;
             });
-            if (q.explanation?.trim()) completed++;
-            return acc + (completed / 6);
+            return acc + (completed / 5);
         }, 0);
         return Math.round((totalCompletion / questions.length) * 100);
     };
